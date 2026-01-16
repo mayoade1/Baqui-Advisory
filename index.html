@@ -256,15 +256,16 @@
               introductory discussion.
             </p>
           </div>
-          <form class="contact-form">
+          <form class="contact-form" action="https://formspree.io/f/xjkvkoyg" method="POST">
             <div class="field-group">
               <label for="name">Name</label>
-              <input id="name" type="text" placeholder="Your full name" required />
+              <input id="name" name="name" type="text" placeholder="Your full name" required />
             </div>
             <div class="field-group">
               <label for="email">Email</label>
               <input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="you@familyoffice.com"
                 required
@@ -274,13 +275,14 @@
               <label for="family">Family / entity name</label>
               <input
                 id="family"
+                name="family"
                 type="text"
                 placeholder="Family or holding company"
               />
             </div>
             <div class="field-group">
               <label for="focus">Primary area of focus</label>
-              <select id="focus">
+              <select id="focus" name="focus">
                 <option>Comprehensive family office build‑out</option>
                 <option>Private wealth management</option>
                 <option>Multi‑generational planning & governance</option>
@@ -291,6 +293,7 @@
               <label for="message">How can we help?</label>
               <textarea
                 id="message"
+                name="message"
                 rows="4"
                 placeholder="Briefly describe your objectives and time horizon."
               ></textarea>
