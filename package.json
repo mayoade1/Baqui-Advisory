@@ -1,0 +1,23 @@
+{
+  "name": "baqui-advisory",
+  "version": "1.0.0",
+  "description": "BaQuI Advisory - Digital Family Office Website with Email Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7"
+  },
+  "keywords": [
+    "family-office",
+    "wealth-management",
+    "contact-form",
+    "email"
+  ],
+  "author": "BaQui Advisory",
+  "license": "MIT"
+}
+

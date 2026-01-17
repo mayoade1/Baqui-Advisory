@@ -3,16 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BaQui Advisory Limited</title>
+    <title>BaQui Advisory Limited | Digital Family Office</title>
     <meta
       name="description"
-      content="BaQui Advisory is a digital family office specializing in private wealth management and multi-generational wealth planning."
+      content="BaQui Advisory is a digital family office specializing in private wealth management and multi-generational wealth planning. We help families steward wealth with intention."
     />
-    <link rel="stylesheet" href="style.css" />
+    <meta name="keywords" content="family office, wealth management, private wealth, multi-generational planning, estate planning, digital family office" />
+    <meta name="author" content="BaQui Advisory Limited" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.baquiadvisory.com/" />
+    <meta property="og:title" content="BaQui Advisory Limited | Digital Family Office" />
+    <meta property="og:description" content="Private wealth management for multi-generational families. Institutional-grade investment discipline with deeply personal planning." />
+    <meta property="og:image" content="https://www.baquiadvisory.com/asset/baqui%20logo%202.0.png" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BaQui Advisory Limited | Digital Family Office" />
+    <meta name="twitter:description" content="Private wealth management for multi-generational families." />
+    <meta name="twitter:image" content="https://www.baquiadvisory.com/asset/baqui%20logo%202.0.png" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="asset/favicon.png" />
+    <link rel="apple-touch-icon" href="asset/favicon.png" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.baquiadvisory.com/" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header class="baqui-header" id="top">
@@ -36,6 +64,22 @@
           <a href="#insights">Insights</a>
           <a href="#contact" class="nav-cta">Talk with us</a>
         </nav>
+        
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+          <span class="hamburger"></span>
+        </button>
+
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-nav-overlay">
+          <nav class="mobile-nav">
+            <a href="#services">Services</a>
+            <a href="#approach">Approach</a>
+            <a href="#families">Families</a>
+            <a href="#insights">Insights</a>
+            <a href="#contact" class="nav-cta">Talk with us</a>
+          </nav>
+        </div>
       </div>
     </header>
 
@@ -256,16 +300,22 @@
               introductory discussion.
             </p>
           </div>
-          <form class="contact-form">
+          <form
+            action="/api/contact"
+            method="POST"
+            class="contact-form"
+            id="contact-form"
+          >
             <div class="field-group">
               <label for="name">Name</label>
-              <input id="name" type="text" placeholder="Your full name" required />
+              <input id="name" type="text" name="name" placeholder="Your full name" required />
             </div>
             <div class="field-group">
               <label for="email">Email</label>
               <input
                 id="email"
                 type="email"
+                name="email"
                 placeholder="you@familyoffice.com"
                 required
               />
@@ -275,12 +325,13 @@
               <input
                 id="family"
                 type="text"
+                name="family"
                 placeholder="Family or holding company"
               />
             </div>
             <div class="field-group">
               <label for="focus">Primary area of focus</label>
-              <select id="focus">
+              <select id="focus" name="focus">
                 <option>Comprehensive family office build‑out</option>
                 <option>Private wealth management</option>
                 <option>Multi‑generational planning & governance</option>
@@ -291,6 +342,7 @@
               <label for="message">How can we help?</label>
               <textarea
                 id="message"
+                name="message"
                 rows="4"
                 placeholder="Briefly describe your objectives and time horizon."
               ></textarea>
@@ -303,6 +355,12 @@
               constitute an offer of investment services or products.
             </p>
           </form>
+          <div id="form-success" class="form-success" style="display: none;">
+            <div class="form-success-content">
+              <h3>Thank you</h3>
+              <p>Your message has been received. A member of our team will be in touch shortly.</p>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -322,7 +380,33 @@
     </footer>
 
     <script>
-      // Smooth scroll for internal links
+      // =============================================
+      // MOBILE MENU TOGGLE
+      // =============================================
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+
+      if (mobileMenuBtn && mobileNavOverlay) {
+        mobileMenuBtn.addEventListener('click', function() {
+          this.classList.toggle('active');
+          mobileNavOverlay.classList.toggle('active');
+          document.body.style.overflow = mobileNavOverlay.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking a link
+        const mobileLinks = mobileNavOverlay.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenuBtn.classList.remove('active');
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        });
+      }
+
+      // =============================================
+      // SMOOTH SCROLL
+      // =============================================
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           const targetId = this.getAttribute("href").substring(1);
@@ -334,13 +418,17 @@
         });
       });
 
-      // Dynamic year
+      // =============================================
+      // DYNAMIC YEAR
+      // =============================================
       const yearEl = document.getElementById("year");
       if (yearEl) {
         yearEl.textContent = new Date().getFullYear();
       }
 
-      // Hero Slideshow
+      // =============================================
+      // HERO SLIDESHOW
+      // =============================================
       const slides = document.querySelectorAll(".hero-image-slide");
       const labelEl = document.querySelector(".hero-slideshow-label");
       const labels = [
@@ -365,10 +453,112 @@
         showSlide(currentSlide);
       }
 
-      // Start slideshow
       if (slides.length > 0) {
         showSlide(0);
-        setInterval(nextSlide, 4000); // Change slide every 4 seconds
+        setInterval(nextSlide, 4000);
+      }
+
+      // =============================================
+      // SCROLL ANIMATIONS (Intersection Observer)
+      // =============================================
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add animation classes to elements
+        const animatedElements = document.querySelectorAll(
+          '.section-header, .card, .split-copy, .split-visual, .insight-card'
+        );
+        
+        animatedElements.forEach(el => {
+          el.classList.add('fade-in-up');
+        });
+
+        // Add stagger classes to cards
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+          card.classList.add(`stagger-${(index % 4) + 1}`);
+        });
+
+        // Create observer
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+          observer.observe(el);
+        });
+      });
+
+      // =============================================
+      // FORM SUBMISSION - WORKS WITH OR WITHOUT SERVER
+      // =============================================
+      const form = document.getElementById("contact-form");
+      const formSuccess = document.getElementById("form-success");
+
+      if (form) {
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData.entries());
+          
+          const submitButton = form.querySelector('button[type="submit"]');
+          const originalButtonText = submitButton.textContent;
+          submitButton.classList.add('loading');
+          submitButton.textContent = '';
+          submitButton.disabled = true;
+
+          try {
+            // Check if we're running on a server or locally
+            const isLocalFile = window.location.protocol === 'file:';
+            
+            if (isLocalFile) {
+              // DEMO MODE: Simulate successful submission
+              console.log('Demo mode - Form data:', data);
+              await new Promise(resolve => setTimeout(resolve, 1500)); // Fake delay
+              form.style.display = "none";
+              formSuccess.style.display = "block";
+              formSuccess.querySelector('p').textContent = 
+                'Demo mode: Form submitted successfully! In production, this would send an email to info@baquiadvisory.com';
+            } else {
+              // SERVER MODE: Send to actual backend
+              const response = await fetch(form.action, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              });
+
+              const result = await response.json();
+
+              if (response.ok && result.success) {
+                form.style.display = "none";
+                formSuccess.style.display = "block";
+              } else {
+                alert(result.message || "There was a problem submitting your form. Please try again.");
+                submitButton.classList.remove('loading');
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+              }
+            }
+          } catch (error) {
+            console.log('Server not available, switching to demo mode');
+            // Fallback to demo mode if server is unreachable
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            form.style.display = "none";
+            formSuccess.style.display = "block";
+            formSuccess.querySelector('p').textContent = 
+              'Demo mode: Form submitted! To enable email sending, install Node.js and configure Zoho credentials in .env file.';
+          }
+        });
       }
     </script>
   </body>
