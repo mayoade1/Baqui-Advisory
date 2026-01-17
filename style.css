@@ -937,6 +937,7 @@ textarea:focus {
 }
 
 .mobile-nav-overlay.active {
+  display: block;
   opacity: 1;
 }
 
@@ -973,10 +974,6 @@ textarea:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .mobile-nav-overlay.active {
-    display: block;
   }
 }
 
